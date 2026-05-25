@@ -2,6 +2,11 @@ name = "rbt-racket"
 language = "Racket"
 description = "Red-Black Tree property-based testing workload (Racket)."
 
+strategies = [
+  "ProplangBespoke", 
+  "RackcheckBespoke",
+  "ParallelBespoke"]
+
 mutations = [
   "delete_4",
   "insert_1",
@@ -16,6 +21,8 @@ mutations = [
   "miscolor_join_2",
   "no_balance_insert_1",
   "no_balance_insert_2",
+  "swap_bc",
+  "swap_cd",
 ]
 
 [[tasks]]
@@ -119,4 +126,36 @@ tasks = [
   { property = "InsertValid", witnesses = [{ input = "((T B E -1 0 E) 0 0)" }] },
   { property = "DeleteInsert", witnesses = [{ input = "((T B E 0 0 E) 3 3 0)" }] },
   { property = "InsertDelete", witnesses = [{ input = "(E 0 0 0)" }] },
+]
+
+# swap_bc / swap_cd are part of the original ETNA paper task set. Witnesses
+# are placeholders; ETNA treats them as metadata for these Racket runs.
+[[tasks]]
+mutations = ["swap_bc"]
+tasks = [
+  { property = "InsertValid",  witnesses = [{ input = "(E 0 0)" }] },
+  { property = "InsertModel",  witnesses = [{ input = "(E 0 0)" }] },
+  { property = "InsertPost",   witnesses = [{ input = "(E 0 0 0)" }] },
+  { property = "DeleteValid",  witnesses = [{ input = "(E 0)" }] },
+  { property = "DeletePost",   witnesses = [{ input = "(E 0 0)" }] },
+  { property = "DeleteModel",  witnesses = [{ input = "(E 0)" }] },
+  { property = "DeleteDelete", witnesses = [{ input = "(E 0 0)" }] },
+  { property = "DeleteInsert", witnesses = [{ input = "(E 0 0 0)" }] },
+  { property = "InsertDelete", witnesses = [{ input = "(E 0 0 0)" }] },
+  { property = "InsertInsert", witnesses = [{ input = "(E 0 0 0 0)" }] },
+]
+
+[[tasks]]
+mutations = ["swap_cd"]
+tasks = [
+  { property = "InsertValid",  witnesses = [{ input = "(E 0 0)" }] },
+  { property = "InsertModel",  witnesses = [{ input = "(E 0 0)" }] },
+  { property = "InsertPost",   witnesses = [{ input = "(E 0 0 0)" }] },
+  { property = "DeleteValid",  witnesses = [{ input = "(E 0)" }] },
+  { property = "DeletePost",   witnesses = [{ input = "(E 0 0)" }] },
+  { property = "DeleteModel",  witnesses = [{ input = "(E 0)" }] },
+  { property = "DeleteDelete", witnesses = [{ input = "(E 0 0)" }] },
+  { property = "DeleteInsert", witnesses = [{ input = "(E 0 0 0)" }] },
+  { property = "InsertDelete", witnesses = [{ input = "(E 0 0 0)" }] },
+  { property = "InsertInsert", witnesses = [{ input = "(E 0 0 0 0)" }] },
 ]
